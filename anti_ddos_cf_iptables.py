@@ -1,7 +1,9 @@
 import logging
 import subprocess as sp
 import sys
-
+'''
+Programmed by Z3NTL3
+'''
 logging.basicConfig(filename='logs.log', level=logging.DEBUG,format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 class installer:
