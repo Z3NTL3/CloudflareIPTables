@@ -12,6 +12,8 @@ class installer:
         logging.error("Cannot run sudo apt-get install curl")
         sys.exit()
 
+installer.curl_install
+
 class Cloudflare_IPS:
     try:
         ipv6 = "curl https://www.cloudflare.com/ips-v6"
