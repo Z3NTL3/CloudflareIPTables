@@ -11,3 +11,6 @@ sudo apt get install curl
 
 <br>
 Do not run this on WINDOWS.
+
+# Logs
+``logs.log`` after running the script.
