@@ -5,6 +5,8 @@ Simply a powerful protection against DDOS.
 
 Reverse Proxy technology filters every request with certain algorithms and different methods. This will protect your server well. You have to hide the static IP. Layer 7 attacks will not work after this setup.
 
+This script does it all automatically for you ❤️. 
+Scrapes always updated reverse proxy range of cloudflare. Run this script twice a month. Cloudflare updates their range always!
 
 # Requirements
 ``iptables``
