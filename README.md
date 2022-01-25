@@ -1,5 +1,9 @@
 # CloudflareIPTables
-A python script with which you can easily set up iptables for cloudflare REVERSE Proxies automatically. Disallows all requests outside the reverse proxy of Cloudflare CDN to avoid DDOS.
+Automated script that automatically sets up cloudflare cdn's reverse proxy technology on your iptables and blocks all requests outside of cloudflare cdn's reverse proxy.
+
+Simply a powerful protection against DDOS.
+
+Reverse Proxy technology filters every request with certain algorithms and different methods. This will protect your server well. You have to hide the static IP. Layer 7 attacks will not work after this setup.
 
 
 # Requirements
