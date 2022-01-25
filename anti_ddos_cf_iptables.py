@@ -13,11 +13,15 @@ class installer:
         sys.exit()
 
 class Cloudflare_IPS:
-    ipv6 = "curl https://www.cloudflare.com/ips-v6"
-    ipv4 = "curl https://www.cloudflare.com/ips-v4"
+    try:
+        ipv6 = "curl https://www.cloudflare.com/ips-v6"
+        ipv4 = "curl https://www.cloudflare.com/ips-v4"
 
-    contentipv4 = sp.getoutput(ipv4)
-    contentipv6 = sp.getoutput(ipv6)
+        contentipv4 = sp.getoutput(ipv4)
+        contentipv6 = sp.getoutput(ipv6)
+    except:
+        logging.critical("Cannot run IPTABLES commands please run me as root and be sure you have iptables")
+        sys.exit("Error occured look into logs.log for details")
 
 
 for ipv_4s in Cloudflare_IPS.contentipv4:
