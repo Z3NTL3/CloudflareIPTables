@@ -4,5 +4,5 @@ A python script with which you can easily set up iptables for cloudflare REVERSE
 
 # Requirements
 ``iptables``
-``curl``
-      sudo apt get install curl
+``curl``<br>
+sudo apt get install curl
