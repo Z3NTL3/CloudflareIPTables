@@ -14,3 +14,6 @@ Do not run this on WINDOWS.
 
 # Logs
 ``logs.log`` after running the script.
+
+# Revere Proxy
+https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/
