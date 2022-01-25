@@ -16,8 +16,8 @@ installer.curl_install
 
 class Cloudflare_IPS:
     try:
-        ipv6 = "curl https://www.cloudflare.com/ips-v6"
-        ipv4 = "curl https://www.cloudflare.com/ips-v4"
+        ipv6 = "curl -s https://www.cloudflare.com/ips-v6"
+        ipv4 = "curl -s https://www.cloudflare.com/ips-v4"
 
         contentipv4 = sp.getoutput(ipv4)
         contentipv6 = sp.getoutput(ipv6)
