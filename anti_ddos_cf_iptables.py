@@ -30,7 +30,7 @@ class Cloudflare_IPS:
 
 for ipv_4s in Cloudflare_IPS.contentipv4:
     try:        
-        sp.run(f"iptables -I INPUT -p tcp -m multiport --dports http,https -s {ipv_4s} -j ACCEPT",shell=True)
+        sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {ipv_4s} -j ACCEPT",shell=True)
     except:
         logging.critical("Cannot run IPTABLES commands please run me as root and be sure you have iptables")
         sys.exit("Error occured look into logs.log for details")
@@ -38,7 +38,7 @@ for ipv_4s in Cloudflare_IPS.contentipv4:
 
 for ipv_6s in Cloudflare_IPS.contentipv6:
     try:      
-         sp.run(f"ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {ipv_6s} -j ACCEPT", shell=True)
+         sp.run(f"sudo ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {ipv_6s} -j ACCEPT", shell=True)
     
     except:
         logging.critical("Cannot run IPTABLES commands please run me as root and be sure you have iptables")
