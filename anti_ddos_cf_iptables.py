@@ -4,19 +4,10 @@ import sys
 '''
 Programmed by Z3NTL3
 '''
+
 logging.basicConfig(filename='logs.log', level=logging.DEBUG,format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
-class installer:
-    try:
-        curl_install = sp.run("sudo apt-get install curl", shell=True)
-    except:
-        print("\033[31mPlease run manually:\033[0m\nsudo apt-get install curl")
-        logging.error("Cannot run sudo apt-get install curl")
-        sys.exit()
-
-installer.curl_install
-
-class Cloudflare_IPS:
+def main()
     try:
         ipv6 = "curl -s https://www.cloudflare.com/ips-v6"
         ipv4 = "curl -s https://www.cloudflare.com/ips-v4"
@@ -27,33 +18,37 @@ class Cloudflare_IPS:
         iplist_ipv4 = {contentipv4}
         iplist_ipv6 = {contentipv6}
 
+        with open("ipv4.txt", "a+")as f:
+            f.write(iplist_ipv4)
+        with open("ipv6.txt", "a+")as q:
+            f.write(iplist_ipv6)
+
+        read_ipv4 = open("ipv4.txt","r")
+        read_ipv6 = open("ipv6.txt","r")
+
+        list_ipv4 = []
+        list_ipv6 = []
+
+        for i in read_ipv4:
+            list_ipv4.append(i)
+
+        for x in read_ipv6:
+            list_ipv4.append(x)
+
+        for ipv4s in list_ipv4:
+            sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {ipv4s} -j ACCEPT",shell=True)
+
+        for ipv6s in list_ipv6:
+            sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {ipv6s} -j ACCEPT",shell=True)
+
+        sp.run(f"sudo iptables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
+        sp.run(f"sudo ip6tables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
+        logging.info("Successfully set IPTABLE RULES")
+        print("Successfully allowed ONLY CLOUDFLARE IPs REVERSE PROXY TECHNOLOGY and disallowed all requests from other.\nAllowed only IP requests which came from the cloudflare cdn reverse proxy end")
     except:
-        logging.critical("Cannot run IPTABLES commands please run me as root and be sure you have iptables")
+        logging.critical("Something wrong happened")
         sys.exit("Error occured look into logs.log for details")
 
 
-for x in range(len(Cloudflare_IPS.iplist_ipv4)):
-    try:        
-        sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {Cloudflare_IPS.iplist_ipv4[x]} -j ACCEPT",shell=True)
-    except:
-        logging.critical("Cannot run IPTABLES commands please run me as root and be sure you have iptables")
-        sys.exit("Error occured look into logs.log for details")
-        
-for x in range(len(Cloudflare_IPS.iplist_ipv6)):
-    try:      
-         sp.run(f"sudo ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {Cloudflare_IPS.iplist_ipv6[x]} -j ACCEPT", shell=True)
-    
-    except:
-        logging.critical("Cannot run IPTABLES commands please run me as root and be sure you have iptables")
-        sys.exit("Error occured look into logs.log for details")
-
-
-try:
-    sp.run(f"sudo iptables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
-    sp.run(f"sudo ip6tables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
-except:
-    logging.critical("Cannot run IPTABLES commands please run me as root and be sure you have iptables")
-    sys.exit("Error occured look into logs.log for details")
-
-logging.info("Successfully set IPTABLE RULES")
-print("Successfully allowed ONLY CLOUDFLARE IPs REVERSE PROXY TECHNOLOGY and disallowed all requests from other.\nAllowed only IP requests which came from the cloudflare cdn reverse proxy end")
+if __name__ == '__main__':
+    main()
