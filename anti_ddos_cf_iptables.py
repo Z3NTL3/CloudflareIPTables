@@ -15,6 +15,9 @@ def main()
         contentipv4 = sp.getoutput(ipv4)
         contentipv6 = sp.getoutput(ipv6)
 
+        sp.run("sudo rm -r ipv4.txt", shell=True, stderr=subprocess.DEVNULL)
+        sp.run("sudo rm -r ipv6.txt", shell=True, stderr=subprocess.DEVNULL)
+
         iplist_ipv4 = {contentipv4}
         iplist_ipv6 = {contentipv6}
 
