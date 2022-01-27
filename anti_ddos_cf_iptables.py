@@ -7,7 +7,7 @@ Programmed by Z3NTL3
 
 logging.basicConfig(filename='logs.log', level=logging.DEBUG,format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
-def main()
+def main():
     try:
         ipv6 = "curl -s https://www.cloudflare.com/ips-v6"
         ipv4 = "curl -s https://www.cloudflare.com/ips-v4"
