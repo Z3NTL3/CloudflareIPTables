@@ -36,7 +36,7 @@ def main()
             list_ipv4.append(i)
 
         for x in read_ipv6:
-            list_ipv4.append(x)
+            list_ipv6.append(x)
 
         for ipv4s in list_ipv4:
             sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {ipv4s} -j ACCEPT",shell=True)
