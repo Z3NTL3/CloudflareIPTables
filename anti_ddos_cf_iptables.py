@@ -32,17 +32,16 @@ class Cloudflare_IPS:
         sys.exit("Error occured look into logs.log for details")
 
 
-for ipv_4s in Cloudflare_IPS.iplist_ipv4:
+for x in range(len(Cloudflare_IPS.iplist_ipv4)):
     try:        
-        sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {ipv_4s} -j ACCEPT",shell=True)
+        sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {Cloudflare_IPS.iplist_ipv4[x]} -j ACCEPT",shell=True)
     except:
         logging.critical("Cannot run IPTABLES commands please run me as root and be sure you have iptables")
         sys.exit("Error occured look into logs.log for details")
         
-
-for ipv_6s in Cloudflare_IPS.iplist_ipv6:
+for x in range(len(Cloudflare_IPS.iplist_ipv6)):
     try:      
-         sp.run(f"sudo ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {ipv_6s} -j ACCEPT", shell=True)
+         sp.run(f"sudo ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {Cloudflare_IPS.iplist_ipv6[x]} -j ACCEPT", shell=True)
     
     except:
         logging.critical("Cannot run IPTABLES commands please run me as root and be sure you have iptables")
