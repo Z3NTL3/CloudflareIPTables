@@ -15,16 +15,13 @@ def main():
         contentipv4 = sp.getoutput(ipv4)
         contentipv6 = sp.getoutput(ipv6)
 
-        sp.run("sudo rm -r ipv4.txt", shell=True, stderr=subprocess.DEVNULL)
-        sp.run("sudo rm -r ipv6.txt", shell=True, stderr=subprocess.DEVNULL)
-
-        iplist_ipv4 = {contentipv4}
-        iplist_ipv6 = {contentipv6}
+        sp.run("sudo rm -r ipv4.txt", shell=True, stderr=sp.DEVNULL)
+        sp.run("sudo rm -r ipv6.txt", shell=True, stderr=sp.DEVNULL)
 
         with open("ipv4.txt", "a+")as f:
-            f.write(iplist_ipv4)
+            f.write(contentipv4)
         with open("ipv6.txt", "a+")as q:
-            f.write(iplist_ipv6)
+            q.write(contentipv6)
 
         read_ipv4 = open("ipv4.txt","r")
         read_ipv6 = open("ipv6.txt","r")
