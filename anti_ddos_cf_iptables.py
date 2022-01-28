@@ -23,26 +23,30 @@ def main():
         with open("ipv6.txt", "a+")as q:
             q.write(contentipv6)
 
-        read_ipv4 = open("ipv4.txt","r")
-        read_ipv6 = open("ipv6.txt","r")
+        read_ipv4 = open("ipv4.txt","r").readlines()
+        read_ipv6 = open("ipv6.txt","r").readlines()
 
-        list_ipv4 = []
-        list_ipv6 = []
+        try:
+            for ipv4s in read_ipv4:
+                sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {ipv4s} -j ACCEPT",shell=True)
+        except:
+            logging.critical("Cannot execute commands run me as sudo")
+            sys.exit("Error occured look into logs.log for details")
+        try:
 
-        for i in read_ipv4:
-            list_ipv4.append(i)
+            for ipv6s in read_ipv6:
+                sp.run(f"sudo ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {ipv6s} -j ACCEPT",shell=True)
+        except:
+            logging.critical("Cannot execute commands run me as sudo")
+            sys.exit("Error occured look into logs.log for details")
 
-        for x in read_ipv6:
-            list_ipv6.append(x)
-
-        for ipv4s in list_ipv4:
-            sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {ipv4s} -j ACCEPT",shell=True)
-
-        for ipv6s in list_ipv6:
-            sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {ipv6s} -j ACCEPT",shell=True)
-
-        sp.run(f"sudo iptables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
-        sp.run(f"sudo ip6tables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
+        try:
+            sp.run(f"sudo iptables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
+            sp.run(f"sudo ip6tables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
+        except:
+            logging.critical("Cannot execute commands run me as sudo")
+            sys.exit("Error occured look into logs.log for details")
+        
         logging.info("Successfully set IPTABLE RULES")
         print("Successfully allowed ONLY CLOUDFLARE IPs REVERSE PROXY TECHNOLOGY and disallowed all requests from other.\nAllowed only IP requests which came from the cloudflare cdn reverse proxy end")
     except:
