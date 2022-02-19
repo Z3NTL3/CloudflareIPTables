@@ -23,22 +23,36 @@ def main():
         with open("ipv6.txt", "a+")as q:
             q.write(contentipv6)
 
-        read_ipv4 = open("ipv4.txt","r").readlines()
-        read_ipv6 = open("ipv6.txt","r").readlines()
+        read_ipv4 = open("ipv4.txt","r").read()
+        cleanipv4 = read_ipv4.strip()
+        readableipv4 = cleanipv6.split("\n")
+
+        read_ipv6 = open("ipv6.txt","r").read()
+        cleanipv6 = read_ipv4.strip()
+        readableipv6 = cleanipv6.split("\n")
+
 
         try:
-            for ipv4s in read_ipv4:
-                sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {ipv4s} -j ACCEPT",shell=True)
+            for ipv4s in readableipv4:
+                sp.run(f"sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {} -j ACCEPT".format(ipv4s),shell=True)
         except:
+            read_ipv4.close()
             logging.critical("Cannot execute commands run me as sudo")
             sys.exit("Error occured look into logs.log for details")
+        finally:
+            read_ipv4.close()
         try:
 
-            for ipv6s in read_ipv6:
-                sp.run(f"sudo ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {ipv6s} -j ACCEPT",shell=True)
+            for ipv6s in readableipv4:
+                sp.run(f"sudo ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {} -j ACCEPT".format(ipv6s),shell=True)
+        
         except:
+            
             logging.critical("Cannot execute commands run me as sudo")
             sys.exit("Error occured look into logs.log for details")
+        finally:
+            read_ipv6.close()
+
 
         try:
             sp.run(f"sudo iptables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
