@@ -13,7 +13,7 @@ Scrapes always updated reverse proxy range of cloudflare. Run this script twice 
 ``curl``
 ``linux/debain OS``
 ```sudo access, run this as root!```
-``Cloudflare``
+``Cloudflare CDN``
 <br>
 sudo apt get install curl
 
