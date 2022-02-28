@@ -25,7 +25,7 @@ def main():
 
         read_ipv4 = open("ipv4.txt","r").read()
         cleanipv4 = read_ipv4.strip()
-        readableipv4 = cleanipv6.split("\n")
+        readableipv4 = cleanipv4.split("\n")
 
         read_ipv6 = open("ipv6.txt","r").read()
         cleanipv6 = read_ipv4.strip()
@@ -39,8 +39,7 @@ def main():
             read_ipv4.close()
             logging.critical("Cannot execute commands run me as sudo")
             sys.exit("Error occured look into logs.log for details")
-        finally:
-            read_ipv4.close()
+        
         try:
 
             for ipv6s in readableipv4:
@@ -50,8 +49,7 @@ def main():
             
             logging.critical("Cannot execute commands run me as sudo")
             sys.exit("Error occured look into logs.log for details")
-        finally:
-            read_ipv6.close()
+        
 
 
         try:
@@ -63,8 +61,9 @@ def main():
         
         logging.info("Successfully set IPTABLE RULES")
         print("Successfully allowed ONLY CLOUDFLARE IPs REVERSE PROXY TECHNOLOGY and disallowed all requests from other.\nAllowed only IP requests which came from the cloudflare cdn reverse proxy end")
+
     except:
-        logging.critical("Something wrong happened")
+        logging.critical("I cannot connect to cloudflare, please check your internet")
         sys.exit("Error occured look into logs.log for details")
 
 
