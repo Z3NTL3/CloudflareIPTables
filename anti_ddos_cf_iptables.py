@@ -36,7 +36,7 @@ def main():
             for ipv4s in readableipv4:
                 sp.run("sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {} -j ACCEPT".format(ipv4s),shell=True)
         except:
-            read_ipv4.close()
+            
             logging.critical("Cannot execute commands run me as sudo")
             sys.exit("Error occured look into logs.log for details")
         
