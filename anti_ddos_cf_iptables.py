@@ -42,7 +42,7 @@ def main():
         
         try:
 
-            for ipv6s in readableipv4:
+            for ipv6s in readableipv6:
                 sp.run("sudo ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {} -j ACCEPT".format(ipv6s),shell=True)
         
         except:
