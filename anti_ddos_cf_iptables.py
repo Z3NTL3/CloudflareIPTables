@@ -34,7 +34,7 @@ def main():
 
         try:
             for ipv4s in readableipv4:
-                sp.run("sudo iptables -I INPUT -p tcp -m multiport --dports http,https -s {} -j ACCEPT".format(ipv4s),shell=True)
+                sp.run("iptables -I INPUT -p tcp -m multiport --dports http,https -s {} -j ACCEPT".format(ipv4s),shell=True)
         except:
             
             logging.critical("Cannot execute commands run me as sudo")
@@ -43,7 +43,7 @@ def main():
         try:
 
             for ipv6s in readableipv6:
-                sp.run("sudo ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {} -j ACCEPT".format(ipv6s),shell=True)
+                sp.run("ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {} -j ACCEPT".format(ipv6s),shell=True)
         
         except:
             
@@ -53,8 +53,8 @@ def main():
 
 
         try:
-            sp.run("sudo iptables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
-            sp.run("sudo ip6tables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
+            sp.run("iptables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
+            sp.run("ip6tables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
         except:
             logging.critical("Cannot execute commands run me as sudo")
             sys.exit("Error occured look into logs.log for details")
