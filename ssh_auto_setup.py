@@ -1,7 +1,6 @@
 import paramiko
 import sys
 import concurrent.futures
-import asyncio 
 
 try:
     host = sys.argv[1]
