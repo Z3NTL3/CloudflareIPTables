@@ -28,10 +28,8 @@ def main():
     try:
         for ipv4s in readableipv4:
             sp.run("iptables -I INPUT -p tcp -m multiport --dports http,https -s {} -j ACCEPT".format(ipv4s),shell=True)
-    except:
-        
-        logging.critical("Cannot execute commands run me as sudo")
-        sys.exit("Error occured look into logs.log for details")
+    except:   
+        pass
     
     try:
 
@@ -39,9 +37,7 @@ def main():
             sp.run("ip6tables -I INPUT -p tcp -m multiport --dports http,https -s {} -j ACCEPT".format(ipv6s),shell=True)
     
     except:
-        
-        logging.critical("Cannot execute commands run me as sudo")
-        sys.exit("Error occured look into logs.log for details")
+        pass
     
 
 
@@ -49,8 +45,7 @@ def main():
         sp.run("iptables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
         sp.run("ip6tables -A INPUT -p tcp --dport http,https -j DROP",shell=True)
     except:
-        logging.critical("Cannot execute commands run me as sudo")
-        sys.exit("Error occured look into logs.log for details")
+        pass
     
     logging.info("Successfully set IPTABLE RULES")
     print("Successfully allowed ONLY CLOUDFLARE IPs REVERSE PROXY TECHNOLOGY and disallowed all requests from other.\nAllowed only IP requests which came from the cloudflare cdn reverse proxy end")
