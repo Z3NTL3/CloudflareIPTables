@@ -18,7 +18,7 @@ def Server(host=host,port=port,username=username,password=password,*,cmd):
     except:
         sys.exit('Invalid host port username password')
     stdin, stdout, stderr = ssh.exec_command(cmd)
-    return stderr
+    return 0
 
 
 def Main():
