@@ -12,8 +12,8 @@ def main():
     ipv6 = "curl -s https://www.cloudflare.com/ips-v6"
     ipv4 = "curl -s https://www.cloudflare.com/ips-v4"
 
-    contentipv4 = sp.getoutput(ipv4)
-    contentipv6 = sp.getoutput(ipv6)
+    contentipv4 = sp.getoutput(ipv4).strip()
+    contentipv6 = sp.getoutput(ipv6).strip()
 
 
     sp.run("sudo rm -r ipv4.txt", shell=True, stderr=sp.DEVNULL)
@@ -23,6 +23,8 @@ def main():
 
     readableipv6 = contentipv6.split("\n")
 
+    print(readableipv4)
+    sys.exit()
     
 
     try:
