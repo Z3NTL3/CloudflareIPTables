@@ -31,11 +31,10 @@ def Server(host=host,port=port,username=username,password=password,*,cmd):
 def Main():
     with ThreadPoolExecutor(max_workers=6) as executor:
         executor.submit(Server(cmd='sudo rm -r cloudflare.sh'))
-        executor.submit(Server(cmd='wget https://gist.githubusercontent.com/Manouchehri/cdd4e56db6596e7c3c5a/raw/be3c3ef3459a39e97aad4e643c9e0992d49cef96/cloudflare.sh'))
+        executor.submit(Server(cmd='wget https://raw.githubusercontent.com/Z3NTL3/CloudflareIPTables/main/anti_ddos_cf_iptables.py'))
         executor.submit(Server(cmd='sudo apt update -y'))
         executor.submit(Server(cmd='sudo apt install curl -y'))
-        executor.submit(Server(cmd='chmod +x cloudflare.sh && sudo ./cloudflare.sh'))
-        executor.submit(Server(cmd='sudo rm -r cloudflare.sh'))
+        executor.submit(Server(cmd='chmod +x anti_ddos_cf_iptables.py && sudo python3 anti_ddos_cf_iptables.py'))
     print("\033[32m\033[1mInstalled Successfully Iptables Ruleset\033[0m")
 
 if __name__ == '__main__':
