@@ -1,7 +1,9 @@
 import paramiko
 import sys
-import concurrent.futures
-
+from concurrent.futures import ThreadPoolExecutor
+'''
+By Z3NTL3
+'''
 procnum = 0
 try:
     host = sys.argv[1]
@@ -27,7 +29,7 @@ def Server(host=host,port=port,username=username,password=password,*,cmd):
 
 
 def Main():
-    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
+    with ThreadPoolExecutor(max_workers=6) as executor:
         executor.submit(Server(cmd='sudo rm -r cloudflare.sh'))
         executor.submit(Server(cmd='wget https://gist.githubusercontent.com/Manouchehri/cdd4e56db6596e7c3c5a/raw/be3c3ef3459a39e97aad4e643c9e0992d49cef96/cloudflare.sh'))
         executor.submit(Server(cmd='sudo apt update -y'))
