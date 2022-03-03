@@ -2,6 +2,7 @@ import paramiko
 import sys
 import concurrent.futures
 
+procnum = 0
 try:
     host = sys.argv[1]
     port = sys.argv[2]
@@ -10,13 +11,17 @@ try:
 except:
     print('Usage:\npython3 cfiptables.py host port username pass\n\nExample usage:\npython3 cfiptables 123.123.123.123 22 root root')
 
+
 def Server(host=host,port=port,username=username,password=password,*,cmd):
+    global procnum
+    procnum += 1
+    print("\033[35mProcess: \033[32m{} \033[36mstarted\033[0m".format(procnum))
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
         ssh.connect(host, port, username, password)
     except:
-        sys.exit('Invalid host port username password')
+        sys.exit('\033[31mERROR: \033[35mInvalid host port username password\033[0m')
     stdin, stdout, stderr = ssh.exec_command(cmd)
     return 0
 
