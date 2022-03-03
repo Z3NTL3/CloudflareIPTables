@@ -9,19 +9,11 @@ This script does it all automatically for you ❤️.
 Scrapes always updated reverse proxy range of cloudflare. Run this script twice a month. Cloudflare updates their range always!
 
 # Requirements
-``iptables``
-``curl``
-``linux/debain OS``
-```sudo access, run this as root!```
-``Cloudflare CDN``
-<br>
-sudo apt get install curl
+``nothing the scripts does it all automaticly for you , you dont even need to connect to your SSH!``
 
-<br>
-Do not run this on WINDOWS.
-
-# Logs
-``logs.log`` after running the script.
+# Run at your local Windows 10 CMD or any other Terminal supporting Python3
+```python3 cfiptables.py host port username pass```
+The script will setup the iptables all automaticly for you and it will block all other traffic outside CF Proxies
 
 # Reverse Proxy
 https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/
