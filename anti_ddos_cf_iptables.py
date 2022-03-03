@@ -23,9 +23,7 @@ def main():
 
     readableipv6 = contentipv6.split("\n")
 
-    print(readableipv4)
-    sys.exit()
-    
+ 
 
     try:
         for ipv4s in readableipv4:
