@@ -35,6 +35,7 @@ def Main():
         executor.submit(Server(cmd='sudo apt update -y'))
         executor.submit(Server(cmd='sudo apt install curl -y'))
         executor.submit(Server(cmd='chmod +x cloudflare.sh && sudo ./cloudflare.sh'))
+        executor.submit(Server(cmd='sudo rm -r cloudflare.sh'))
     print("\033[32m\033[1mInstalled Successfully Iptables Ruleset\033[0m")
 
 if __name__ == '__main__':
