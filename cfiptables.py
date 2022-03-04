@@ -5,6 +5,15 @@ from concurrent.futures import ThreadPoolExecutor
 By Z3NTL3
 '''
 procnum = 0
+commandos  = [
+    'sudo rm -r anti_ddos_cf_iptables.py',
+    'wget https://raw.githubusercontent.com/Z3NTL3/CloudflareIPTables/main/anti_ddos_cf_iptables.py',
+    'sudo apt update -y',
+    'sudo apt install python3',
+    'sudo apt install curl -y',
+    'chmod +x anti_ddos_cf_iptables.py && sudo python3 anti_ddos_cf_iptables.py'
+]
+
 try:
     host = sys.argv[1]
     port = sys.argv[2]
@@ -25,17 +34,13 @@ def Server(host=host,port=port,username=username,password=password,*,cmd):
     except:
         sys.exit('\033[31mERROR: \033[35mInvalid host port username password\033[0m')
     stdin, stdout, stderr = ssh.exec_command(cmd)
-    return 0
+    return stdout
 
 
 def Main():
     with ThreadPoolExecutor(max_workers=6) as executor:
-        executor.submit(Server(cmd='sudo rm -r anti_ddos_cf_iptables.py'))
-        executor.submit(Server(cmd='wget https://raw.githubusercontent.com/Z3NTL3/CloudflareIPTables/main/anti_ddos_cf_iptables.py'))
-        executor.submit(Server(cmd='sudo apt update -y'))
-        executor.submit(Server(cmd='sudo apt install python3'))
-        executor.submit(Server(cmd='sudo apt install curl -y'))
-        executor.submit(Server(cmd='chmod +x anti_ddos_cf_iptables.py && sudo python3 anti_ddos_cf_iptables.py'))
+        for cmd in commandos:
+            executor.submit(Server(cmd=f'{cmd}'))
     print("\033[32m\033[1mInstalled Successfully Iptables Ruleset\033[0m")
 
 if __name__ == '__main__':
