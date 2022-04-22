@@ -1,7 +1,6 @@
 import paramiko
 import sys
 from concurrent.futures import ThreadPoolExecutor
-import asyncio
 
 '''
 By Z3NTL3
@@ -26,7 +25,7 @@ except:
     sys.exit(0)
 
 
-def Server(host=host,port=port,username=username,password=password,*,cmd):
+def Server(cmd):
     global procnum
     procnum += 1
     print("\033[35mProcess: \033[32m{} \033[36mstarted\033[0m".format(procnum))
@@ -37,19 +36,15 @@ def Server(host=host,port=port,username=username,password=password,*,cmd):
     except:
         sys.exit('\033[31mERROR: \033[35mInvalid host port username password\033[0m')
     stdin, stdout, stderr = ssh.exec_command(cmd)
-    return stdin
+    return stdout
 
-async def Run():
-    await asyncio.gather(Main())
-
-async def Main():
-    with ThreadPoolExecutor(max_workers=6) as executor:
-        for cmd in commandos:
-            executor.submit(Server(cmd=f'{cmd}'))
-            await asyncio.sleep(0)
-
+def Main():
+    for cmd in commandos:
+        with ThreadPoolExecutor() as executor:
+            stdout_output = executor.submit(Server,cmd)
+            with open("logs.txt","a+")as f:
+                f.write(f"{stdout_output.result()}\n")
     print("\033[32m\033[1mInstalled Successfully Iptables Ruleset\033[0m")
 
 if __name__ == '__main__':
-    lp = asyncio.new_event_loop()
-    lp.run_until_complete(Run())
+    Main()
