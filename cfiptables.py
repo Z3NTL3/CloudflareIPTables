@@ -24,8 +24,7 @@ except:
     print(f'Usage:\npython3 {__file__} host port username pass\n\nExample usage:\npython3 {__file__} 123.123.123.123 22 root root')
     sys.exit(0)
 
-
-def Server(cmd):
+def Server(**cmd):
     global procnum
     procnum += 1
     print("\033[35mProcess: \033[32m{} \033[36mstarted\033[0m".format(procnum))
@@ -35,13 +34,13 @@ def Server(cmd):
         ssh.connect(host, port, username, password)
     except:
         sys.exit('\033[31mERROR: \033[35mInvalid host port username password\033[0m')
-    stdin, stdout, stderr = ssh.exec_command(cmd)
+    stdin, stdout, stderr = ssh.exec_command(cmd['shellexec'])
     return stdout
 
 def Main():
     for cmd in commandos:
         with ThreadPoolExecutor() as executor:
-            stdout_output = executor.submit(Server,cmd)
+            stdout_output = executor.submit(Server,shellexec=cmd)
             with open("logs.txt","a+")as f:
                 f.write(f"{stdout_output.result()}\n")
     print("\033[32m\033[1mInstalled Successfully Iptables Ruleset\033[0m")
