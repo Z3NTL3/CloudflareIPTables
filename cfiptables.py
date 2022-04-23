@@ -38,8 +38,8 @@ def Server(**cmd):
     return stdout
 
 def Main():
-    for cmd in commandos:
-        with ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor() as executor:
+        for cmd in commandos:
             stdout_output = executor.submit(Server,shellexec=cmd)
             with open("logs.txt","a+")as f:
                 f.write(f"{stdout_output.result()}\n")
