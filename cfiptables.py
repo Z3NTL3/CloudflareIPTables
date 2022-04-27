@@ -1,7 +1,8 @@
 import paramiko
 import sys
 from concurrent.futures import ThreadPoolExecutor
-
+from concurrent.futures import as_completed
+from concurrent.futures import Future
 '''
 By Z3NTL3
 '''
@@ -38,9 +39,9 @@ def Server(**cmd):
     return stdout
 
 def Main():
-    with ThreadPoolExecutor() as executor:
-        for cmd in commandos:
-            stdout_output = executor.submit(Server,shellexec=cmd)
+    with ThreadPoolExecutor(max_workers=61) as executor:
+        ftrs = [executor.submit(Server,shellexec=cmd) for cmd in commandos]
+        for fr in as_completed(ftrs):
             with open("logs.txt","a+")as f:
                 f.write(f"{stdout_output.result()}\n")
     print("\033[32m\033[1mInstalled Successfully Iptables Ruleset\033[0m")
