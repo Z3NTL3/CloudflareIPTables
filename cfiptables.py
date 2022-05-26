@@ -43,7 +43,7 @@ def Main():
         ftrs = [executor.submit(Server,shellexec=cmd) for cmd in commandos]
         for fr in as_completed(ftrs):
             with open("logs.txt","a+")as f:
-                f.write(f"{stdout_output.result()}\n")
+                f.write(f"{fr.result()}\n")
     print("\033[32m\033[1mInstalled Successfully Iptables Ruleset\033[0m")
 
 if __name__ == '__main__':
