@@ -41,7 +41,7 @@ def Server(**cmd):
     return stdout
 
 def Main():
-    with ThreadPoolExecutor(max_workers=(usableCPU-1)) as executor:
+    with ThreadPoolExecutor(max_workers=(usableCPU-1)*2) as executor:
         ftrs = [executor.submit(Server,shellexec=cmd) for cmd in commandos]
         for fr in as_completed(ftrs):
             with open("logs.txt","a+")as f:
