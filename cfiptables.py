@@ -1,3 +1,4 @@
+from os import cpu_count
 import paramiko
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -6,6 +7,7 @@ from concurrent.futures import Future
 '''
 By Z3NTL3
 '''
+usableCPU = cpu_count()
 procnum = 0
 commandos  = [
     'sudo rm -r anti_ddos_cf_iptables.py',
@@ -39,7 +41,7 @@ def Server(**cmd):
     return stdout
 
 def Main():
-    with ThreadPoolExecutor(max_workers=61) as executor:
+    with ThreadPoolExecutor(max_workers=(usableCPU-1)) as executor:
         ftrs = [executor.submit(Server,shellexec=cmd) for cmd in commandos]
         for fr in as_completed(ftrs):
             with open("logs.txt","a+")as f:
