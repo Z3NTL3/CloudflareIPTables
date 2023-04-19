@@ -26,7 +26,7 @@ try:
                 f"ufw allow proto tcp from {ipv6} comment 'CF IP'", shell=True, stdin=subprocess.PIPE)
             p.communicate(input='y\n'.encode())
 
-        p = subprocess.Popen("ufw allow ssh",
+        p = subprocess.Popen("ufw limit ssh",
                              shell=True)
         p.communicate(input='y\n'.encode())
         p = subprocess.Popen("ufw reload", shell=True, stdin=subprocess.PIPE)
