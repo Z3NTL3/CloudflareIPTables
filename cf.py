@@ -6,7 +6,7 @@ try:
     p = subprocess.Popen("ufw reset", shell=True, stdin=subprocess.PIPE)
     p.communicate(input='y\n'.encode())
 
-    p = subprocess.Popen("ufw default deny incoming",
+    p = subprocess.Popen("ufw default reject incoming",
                          shell=True, stdin=subprocess.PIPE)
     p.communicate(input='y\n'.encode())
 
