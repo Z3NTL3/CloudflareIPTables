@@ -22,12 +22,24 @@ try:
                 ips = np.concatenate((ipv4s, ipv6s))
 
                 for ip in ips:
-                    p = subprocess.Popen(cmd % ip, shell=True, stdin=subprocess.PIPE)
-                    p.communicate(input='y\n'.encode()) 
+                    p = subprocess.Popen(cmd % ip, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    out, err = p.communicate(input='y\n'.encode())
+
+                    if err:
+                        print("failed configuration: %s" % err.decode())
+                        exit(0)
+                    if out:
+                        print(out.decode())
             continue
 
-        p = subprocess.Popen("%s" % cmd, shell=True, stdin=subprocess.PIPE)
-        p.communicate(input='y\n'.encode())
+        p = subprocess.Popen("%s" % cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        out, err = p.communicate(input='y\n'.encode())
+
+        if err:
+            print("failed configuration: %s" % err.decode())
+            exit(0)
+        if out:
+            print(out.decode())
 
 except Exception as e:
     print("Found error: %s" % e)
