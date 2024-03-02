@@ -43,3 +43,5 @@ try:
 
 except Exception as e:
     print("Found error: %s" % e)
+
+exit(0)
