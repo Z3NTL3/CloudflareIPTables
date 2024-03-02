@@ -14,7 +14,7 @@ commands = [
 
 def test_pytest_pass():
     assert 1 == 1
-    
+
 try:
     for cmd in commands:
         if "ufw allow proto tcp" in cmd: 
@@ -46,4 +46,3 @@ try:
 
 except Exception as e:
     print("Found error: %s" % e)
-
